@@ -1,20 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
-
-{% block title %}Hello|To Be Frank{% endblock %}
-
+{% block title %} Post Archives|To Be Frank{% endblock %}
 {% block content %}
-<!-- Page Header -->
-<!-- Set your background image for this header on the line below. -->
 
 <header class="intro-header" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="site-heading">
-                    <h1>To Be Frank</h1>
+                    <h1>Post Archive</h1>
                     <hr class="small">
-                    <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+                    <span class="subheading">These are my previous entries</span>
                 </div>
             </div>
         </div>
@@ -26,7 +22,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
               {% for object in object_list %}
                 <div class="post-preview">
-                    <a href="/blog/post/{{ object.id }}/">
+                    <a href="/blog/post/{{object.id}}/">
                         <h2 class="post-title">
                             {{ object.title }}
                         </h2>
@@ -34,17 +30,18 @@
                             {{ object.subtitle }}
                         </h3>
                     </a>
-                    <p class="post-meta">Posted by <a href="/">{{ object.user }}</a> on {{ object.timestamp|date:"F m, Y" }}</p>
+                    <p class="post-meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.timestamp|date:"F d, Y" }}</p>
                 </div>
                 <hr>
                 {% endfor %}
                 <!-- Pager -->
                 <ul class="pager">
                     <li class="next">
-                        <a href="/blog/archives/">Older Posts &rarr;</a>
+                        <a href="#">Older Posts &rarr;</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-{% endblock content%}
+
+{% endblock content %}

@@ -1,8 +1,12 @@
 from django.shortcuts import render
-
+from blog.models import Post
 
 def home(request):
-	return render(request,"home.html",{})
+	queryset = Post.objects.order_by("-timestamp")[:3]
+	object_list = {
+	'object_list':queryset
+	}
+	return render(request,"home.html",object_list)
 
 
 def contact(request):

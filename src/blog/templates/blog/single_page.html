@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ object.title }}|To Be Frank{% endblock %}
+{% block content %}
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-image: url('{% static 'img/post-bg.jpg' %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>{{ object.title }}</h1>
+                    <h2 class="subheading">{{ object.subtitle }}</h2>
+                    <span class="meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.timestamp|date:"F d, Y" }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                {{ object.content }}
+            </div>
+        </div>
+    </div>
+</article>
+
+{% include "blog/contact_form.html" %}
+{% endblock content %}
