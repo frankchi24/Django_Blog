@@ -1,12 +1,20 @@
 from django.shortcuts import render
 from .models import Post
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from .forms import PostModelForm
 from django.urls import reverse_lazy
-
+from .mixins import FormUserNeededMixin
 # Create your views here.
 
-class PostCreate(CreateView):
+class PostCreate(FormUserNeededMixin,CreateView):
+    model = Post
+    form_class = PostModelForm
+    template_name ='blog/create_post.html'
+    success_url = reverse_lazy('blog:archives')
+
+
+
+class PostUpdate(UpdateView):
     model = Post
     form_class = PostModelForm
     template_name ='blog/create_post.html'
@@ -15,6 +23,8 @@ class PostCreate(CreateView):
     def form_valid(self,form):
     		form.instance.user = self.request.user
     		return super(PostCreate, self).form_valid(form)
+
+
 
 
 def post(request, pk=None):

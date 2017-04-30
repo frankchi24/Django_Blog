@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^about/$',about, name='about'),
     url(r'^post/$',post, name='post'),
     url(r'^blog/',include('blog.urls',namespace='blog')),
+
 ]
 
 
