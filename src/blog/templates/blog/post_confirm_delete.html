@@ -1,0 +1,31 @@
+{% extends 'to_be_frank/base.html' %}
+{% load static %}
+{% block title %}{{ object.title }}Delete Confirm{% endblock %}
+
+
+{% block content %}
+<header class="intro-header" style="background-image: url('{% static 'img/contact-bg.jpg' %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="page-heading">
+                    <h1>Really?</h1>
+                    <hr class="small">
+                    <span class="subheading"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <form action="" method="post">{% csrf_token %}
+                <h3>Are you sure you want to delete "{{ object }}"?</h3>
+                <br>
+                <button type="submit" value="Confirm" class="btn btn-default" />Confirm</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

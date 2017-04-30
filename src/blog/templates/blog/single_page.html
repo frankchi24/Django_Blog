@@ -1,6 +1,6 @@
 {% extends 'to_be_frank/base.html' %}
 {% load static %}
-{% block title %}{{ object.title }}|To Be Frank{% endblock %}
+{% block title %}{{ object.title }}{{ object.title }}{% endblock %}
 {% block content %}
 {% load markdown_deux_tags %}
 <!-- Page Header -->

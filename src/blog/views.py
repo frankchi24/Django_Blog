@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Post
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import PostModelForm
 from django.urls import reverse_lazy
 from .mixins import FormUserNeededMixin
@@ -12,17 +12,24 @@ class PostCreate(FormUserNeededMixin,CreateView):
     template_name ='blog/create_post.html'
     success_url = reverse_lazy('blog:archives')
 
+    def form_valid(self,form):
+    		form.instance.user = self.request.user
+    		return super(PostCreate, self).form_valid(form)
 
 
 class PostUpdate(UpdateView):
-    model = Post
+    queryset = Post.objects.all()
     form_class = PostModelForm
-    template_name ='blog/create_post.html'
+    template_name ='blog/update_post.html'
     success_url = reverse_lazy('blog:archives')
 
     def form_valid(self,form):
     		form.instance.user = self.request.user
-    		return super(PostCreate, self).form_valid(form)
+    		return super(PostUpdate, self).form_valid(form)
+
+class PostDelete(DeleteView):
+    model = Post
+    success_url = reverse_lazy('blog:archives')
 
 
 
