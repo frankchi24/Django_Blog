@@ -4,33 +4,50 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import PostModelForm
 from django.urls import reverse_lazy
 from .mixins import FormUserNeededMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 # Create your views here.
 
-class PostCreate(FormUserNeededMixin,CreateView):
+class PostCreate(SuccessMessageMixin,FormUserNeededMixin,CreateView):
     model = Post
     form_class = PostModelForm
     template_name ='blog/create_post.html'
     success_url = reverse_lazy('blog:archives')
-
+    success_message = "\"%(title)s\" was created successfully"
     def form_valid(self,form):
     		form.instance.user = self.request.user
     		return super(PostCreate, self).form_valid(form)
 
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            cleaned_data,
+            calculated_field=self.object.title,
+        )
 
-class PostUpdate(UpdateView):
+class PostUpdate(SuccessMessageMixin,UpdateView):
     queryset = Post.objects.all()
     form_class = PostModelForm
     template_name ='blog/update_post.html'
     success_url = reverse_lazy('blog:archives')
+    success_message = "\"%(title)s\" was updated"
 
     def form_valid(self,form):
     		form.instance.user = self.request.user
     		return super(PostUpdate, self).form_valid(form)
 
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            cleaned_data,
+            calculated_field=self.object.title,
+        )
 class PostDelete(DeleteView):
     model = Post
     success_url = reverse_lazy('blog:archives')
+    success_message = "The post was deleted"
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(PostDelete, self).delete(request, *args, **kwargs)
 
 
 

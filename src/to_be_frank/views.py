@@ -8,7 +8,7 @@ def home(request):
 	object_list = {
 	'object_list':queryset
 	}
-	messages.success(request, 'Hello world!')
+	# messages.success(request, 'Hello world!')
 	return render(request,"to_be_frank/home.html",object_list)
 
 
