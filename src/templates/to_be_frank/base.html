@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,9 +37,20 @@
 
 <body>
 
+
+
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+      {% if messages %}
+        {% for m in messages %}
+      <div style='text-align:center' class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>{{ m }}</strong>
+      </div>
+        {% endfor %}
+      {% endif %}
         <div class="container-fluid">
+
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -47,6 +59,7 @@
                 </button>
                 <a class="navbar-brand" href="/">@frankchi</a>
             </div>
+
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -68,16 +81,23 @@
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
+
     </nav>
 
 
-
     {% block content %}
+
+
+
+
+
+
     {% endblock content%}
 
 
     <hr>
     <!-- Footer -->
+
     <footer>
         <div class="container">
             <div class="row">

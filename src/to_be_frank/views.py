@@ -1,11 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from blog.models import Post
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 def home(request):
 	queryset = Post.objects.order_by("-timestamp")[:3]
 	object_list = {
 	'object_list':queryset
 	}
+	messages.success(request, 'Hello world!')
 	return render(request,"to_be_frank/home.html",object_list)
 
 
