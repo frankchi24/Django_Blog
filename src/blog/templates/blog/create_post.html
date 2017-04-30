@@ -1,10 +1,22 @@
-{% extends 'base.html' %}
+{% extends 'to_be_frank/base.html' %}
 {% load static %}
 {% block title %}{{ object.title }}Create Post |To Be Frank{% endblock %}
 
 
 {% block content %}
-
-{% incldue "contact_form.html"%}
+<header class="intro-header" style="background-image: url('{% static 'img/contact-bg.jpg' %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="page-heading">
+                    <h1>Create Post</h1>
+                    <hr class="small">
+                    <span class="subheading">Sell, don't tell!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% include "blog/contact_form.html"%}
 
 {% endblock %}

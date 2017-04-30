@@ -6,15 +6,15 @@ def home(request):
 	object_list = {
 	'object_list':queryset
 	}
-	return render(request,"home.html",object_list)
+	return render(request,"to_be_frank/home.html",object_list)
 
 
 def contact(request):
-	return render(request,"contact.html",{})
+	return render(request,"to_be_frank/contact.html",{})
 
 def about(request):
-	return render(request,"about.html",{})
+	return render(request,"to_be_frank/about.html",{})
 
 
 def post(request):
-	return render(request,"post.html",{})
+	return render(request,"to_be_frank/post.html",{})

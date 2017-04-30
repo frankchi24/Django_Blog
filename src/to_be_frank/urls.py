@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^contact/$',contact, name='contact'),
     url(r'^about/$',about, name='about'),
     url(r'^post/$',post, name='post'),
-    url(r'^blog/',include('blog.urls')),
+    url(r'^blog/',include('blog.urls',namespace='blog')),
 ]
 
 
