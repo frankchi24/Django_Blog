@@ -6,7 +6,10 @@ from django.urls import reverse_lazy
 from .mixins import FormUserNeededMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator # for class based views
 # Create your views here.
+
 
 class PostCreate(SuccessMessageMixin,FormUserNeededMixin,CreateView):
     model = Post
@@ -23,6 +26,12 @@ class PostCreate(SuccessMessageMixin,FormUserNeededMixin,CreateView):
             cleaned_data,
             calculated_field=self.object.title,
         )
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PostCreate, self).dispatch(*args, **kwargs)
+
+
 
 class PostUpdate(SuccessMessageMixin,UpdateView):
     queryset = Post.objects.all()
