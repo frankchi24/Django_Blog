@@ -1,15 +1,18 @@
-from django.shortcuts import render
-from .models import Post
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Post, Comment
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .forms import PostModelForm
-from django.urls import reverse_lazy
+from django.views.generic.detail import DetailView
+from .forms import PostModelForm, CommentForm
+from django.urls import reverse_lazy, reverse
 from .mixins import FormUserNeededMixin
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator # for class based views
+# messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 #Pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 
 
@@ -62,12 +65,38 @@ class PostDelete(DeleteView):
 
 
 
-def post(request, pk=None):
-    obj = Post.objects.get(pk=pk)
+def PostDetail(request, pk=None):
+    form = CommentForm()
+    post = get_object_or_404(Post, pk=pk)
+    success_message = 'Thanks for your input!'
+    if request.method == "POST":
+        form = CommentForm(request.POST or None)
+        if form.is_valid():
+            c = form.save(commit=False)
+            c.post = post
+            c.save()
+            messages.success(request, success_message)
+            return redirect(reverse('blog:PostDetail', kwargs={'pk':pk}))
+        else:
+            messages.success(request, 'Form is not valid~')
     context ={
-    'object':obj
+    'object':post,
+    'form':form
     }
-    return render(request, "blog/single_page.html", context)
+    return render(request, 'blog/single_page.html', context)
+
+# class PostDetail(DetailView):
+#     model = Post
+#     template_name = 'blog/single_page.html'
+#
+#     def get_context_data(self, **kwargs):
+#         obj = super(PostDetail, self).get_context_data(**kwargs)
+#         return obj
+#
+#     def get_form(self):
+#         form = self.form_class(instance=self.object) # instantiate the form
+#         return form
+
 
 
 

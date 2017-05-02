@@ -1,33 +1,98 @@
-{% extends 'to_be_frank/base.html' %}
-{% load static %}
-{% block title %}{{ object.title }}{{ object.title }}{% endblock %}
-{% block content %}
-{% load markdown_deux_tags %}
+{% extends 'to_be_frank/base.html' %} {% load static %} {% block title %}{{ object.title }}{{ object.title }}{% endblock %} {% block content %} {% load markdown_deux_tags %} {{ form.media }}
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
 <header class="intro-header" style="background-image: url('{% static 'img/post-bg.jpg' %}')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>{{ object.title }}</h1>
-                    <h2 class="subheading">{{ object.subtitle }}</h2>
-                    <span class="meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.timestamp|date:"F d, Y" }}</span>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <h1>{{ object.title }}</h1>
+          <h2 class="subheading">{{ object.subtitle }}</h2>
+          <span class="meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.timestamp|date:"F d, Y" }}</span>
         </div>
+      </div>
     </div>
+  </div>
 </header>
 
 <!-- Post Content -->
 <article>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                {{ object.content|markdown }}
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        {{ object.content|markdown }}
+      </div>
     </div>
+  </div>
 </article>
+<hr>
 
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-5 col-lg-offset-1 col-md-6">
+      <br>
+      <h3>Comments</h3>
+      <br> {% for comment in object.comments.all %} {% if comment.approved_comment %}
+      <div class="panel panel-white post panel-shadow">
+        <div class="post-heading">
+          <!-- <div class="pull-left image">
+                      <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                  </div> -->
+          <div class="pull-left meta">
+            <div class="title h5">
+              <a href="#"><b>{{ comment.author }}</b></a> made a comment.
+            </div>
+            <h6 class="text-muted time">{{ comment.timestamp|timesince }} ago</h6>
+          </div>
+        </div>
+        <div class="post-description">
+          {{ comment.content}}
+          <div class="stats">
+            <a href="#" class="btn btn-default stat-item">
+              <i class="fa fa-thumbs-up icon"></i>2
+            </a>
+            <a href="#" class="btn btn-default stat-item">
+              <i class="fa fa-thumbs-down icon"></i>12
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% empty %}
+      <p>No comments here yet.</p>
+      {% endfor %}
+      </form>
+    </div>
+    <br>
+    <div class="col-lg-5 col-lg-offset-1 col-md-6">
+           <h3> Wanna say something?</h3>
+          <!-- Display Form -->
+          <form  method="post" id ="contactform" novalidate>
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="row control-group">
+              <div class="form-group col-xs-12 floating-label-form-group controls">
+                <h3 style="color:#0085A1">{{ field.errors.as_text }}</h3>
+                  <label>{{ field.label }}</label>
+                  {{ field }}
+                  <p class="help-block text-danger"></p>
+
+              </div>
+          </div>
+          {% endfor %}
+          <br>
+          <div id="success"></div>
+          <div class="row">
+              <div class="form-group col-xs-12">
+                  <button type="submit" value="Save" class="btn btn-default">Send</button>
+              </div>
+          </div>
+          </form>
+  </div>
+  </div>
+</div>
 {% endblock content %}

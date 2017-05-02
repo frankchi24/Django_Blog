@@ -18,3 +18,18 @@ class Post(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+
+class Comment(models.Model):
+    post = models.ForeignKey('blog.Post', related_name='comments')
+    author = models.CharField(max_length=100)
+    content = models.TextField(max_length = 200)
+    timestamp = models.DateTimeField(auto_now=True)
+    approved_comment = models.BooleanField(default=True)
+
+    def approve(self):
+        self.approved_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.content

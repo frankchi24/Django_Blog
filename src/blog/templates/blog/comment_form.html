@@ -1,0 +1,30 @@
+{{ form.media }}
+<div class="container">
+   <div class="row">
+       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <h3> Wanna say something?</h3>
+             <!-- Display Form -->
+             <form  method="post" id ="contactform" novalidate>
+             {% csrf_token %}
+             {% for field in form %}
+             <div class="row control-group">
+                 <div class="form-group col-xs-12 floating-label-form-group controls">
+                   <h3 style="color:#0085A1">{{ field.errors.as_text }}</h3>
+                     <label>{{ field.label }}</label>
+                     {{ field }}
+                     <p class="help-block text-danger"></p>
+
+                 </div>
+             </div>
+             {% endfor %}
+             <br>
+             <div id="success"></div>
+             <div class="row">
+                 <div class="form-group col-xs-12">
+                     <button type="submit" value="Save" class="btn btn-default">Send</button>
+                 </div>
+             </div>
+             </form>
+     </div>
+    </div>
+  </div>
