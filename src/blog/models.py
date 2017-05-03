@@ -8,6 +8,13 @@ def validate_content(value):
         raise ValidationError("Watch your language")
     return value
 
+
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=50, unique=True, blank=True)
+
+    def __str__(self):
+        return str(self.tag_name)
+
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(max_length=100,unique=True,validators=[validate_content])
@@ -15,9 +22,14 @@ class Post(models.Model):
     content = models.TextField(max_length = 5000)
     updated = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return str(self.title)
+
+
+
+
 
 
 class Comment(models.Model):

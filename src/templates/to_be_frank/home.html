@@ -1,50 +1,48 @@
-{% extends 'to_be_frank/base.html' %}
-{% load static %}
-
-{% block title %}hello{% endblock %}
-
-{% block content %}
+{% extends 'to_be_frank/base.html' %} {% load static %} {% block title %}hello{% endblock %} {% block content %}
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
 
 <header class="intro-header" style="background-image: url('{% static 'img/home-bg.jpg' %}')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>To Be Frank</h1>
-                    <hr class="small">
-                    <span class="subheading">Learn and Do</span>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="site-heading">
+          <h1>To Be Frank</h1>
+          <hr class="small">
+          <span class="subheading">Learn and Do</span>
         </div>
+      </div>
     </div>
+  </div>
 </header>
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-              {% for object in object_list %}
-                <div class="post-preview">
-                    <a href="/blog/post/{{ object.id }}/">
-                        <h2 class="post-title">
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      {% for object in object_list %}
+      <div class="post-preview">
+        <a href="/blog/post/{{ object.id }}/">
+          <h2 class="post-title">
                             {{ object.title }}
                         </h2>
-                        <h3 class="post-subtitle">
+          <h3 class="post-subtitle">
                             {{ object.subtitle }}
                         </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="/">{{ object.user }}</a> on {{ object.timestamp|date:"F m, Y" }}</p>
-                </div>
-                <hr>
-                {% endfor %}
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="next">
-                        <a href="/blog/archives/">Older Posts &rarr;</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        </a>
+        <p class="post-meta">Posted by <a href="/">{{ object.user }}</a> on {{ object.timestamp|date:"F m, Y" }} {% for tag in object.tags.all %}
+          <a href=""><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %}
+        </p>
+
+
+      </div>
+      <hr> {% endfor %}
+      <!-- Pager -->
+      <ul class="pager">
+        <li class="next">
+          <a href="/blog/archives/">Older Posts &rarr;</a>
+        </li>
+      </ul>
     </div>
+  </div>
+</div>
 {% endblock content%}

@@ -2,21 +2,27 @@ from django import forms
 from .models import Post, Comment
 from pagedown.widgets import PagedownWidget
 
+
+
+
 class PostModelForm(forms.ModelForm):
+    tags = forms.CharField(widget=forms.TextInput(attrs={'size':64}))
     content = forms.CharField(widget=PagedownWidget())
+
     class Meta:
         model = Post
         fields = [
         'title',
         'subtitle',
-        'content'
+        'content',
         ]
-        exclude = ["user"]
+        exclude = ['user','tags']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control','placeholder':'Title'}),
             'subtitle': forms.TextInput(attrs={'class': 'form-control','placeholder':'Subtitle'}),
-            # 'content': forms.Textarea(attrs={'class': 'form-control','rows': 5,'placeholder':'Content'}),
+            'subtitle': forms.TextInput(attrs={'class': 'form-control','placeholder':'Subtitle'}),
         }
+
 
 
 class CommentForm(forms.ModelForm):

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Comment, Tag
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from .forms import PostModelForm, CommentForm
@@ -22,9 +22,18 @@ class PostCreate(SuccessMessageMixin,FormUserNeededMixin,CreateView):
     template_name ='blog/create_post.html'
     success_url = reverse_lazy('blog:archives')
     success_message = "\"%(title)s\" was created successfully"
+
     def form_valid(self,form):
-    		form.instance.user = self.request.user
-    		return super(PostCreate, self).form_valid(form)
+        form.instance.user = self.request.user
+        stash = form.save(commit=False)
+        stash.save()
+        tag_names = form.cleaned_data['tags'].split(',')
+        for tag in tag_names:
+            print(tag)
+            tag, created = Tag.objects.get_or_create(tag_name=tag)
+            stash.tags.add(tag)
+            stash.save()
+        return super(PostCreate, self).form_valid(form)
 
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(
