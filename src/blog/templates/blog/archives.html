@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="site-heading">
-          <h1>Post Archive</h1>
+          <h1>{{ title }}</h1>
           <hr class="small">
           <span class="subheading">These are my previous entries</span>
         </div>
@@ -28,7 +28,7 @@
                         </h3>
         </a>
         <p class="post-meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.timestamp|date:"F d, Y" }}{% for tag in object.tags.all %}
-          <a href=""><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %}
+          <a href="/blog/tag/{{ tag.tag_name}}/"><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %}
           <hr> {% endfor %}</p>
 
       </div>

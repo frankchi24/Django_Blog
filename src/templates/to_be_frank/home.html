@@ -30,7 +30,7 @@
                         </h3>
         </a>
         <p class="post-meta">Posted by <a href="/">{{ object.user }}</a> on {{ object.timestamp|date:"F m, Y" }} {% for tag in object.tags.all %}
-          <a href=""><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %}
+          <a href="/blog/tag/{{ tag.tag_name}}/"><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %}
         </p>
 
 
