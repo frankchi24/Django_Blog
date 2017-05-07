@@ -15,17 +15,6 @@ class Tag(models.Model):
     def __str__(self):
         return str(self.tag_name)
 
-class PostFeaturedImage(models.Model):
-    updated = models.DateTimeField(auto_now_add=True)
-    created = models.DateTimeField(auto_now_add=True,editable=False)
-    title = models.CharField(max_length=20)
-    image = models.ImageField(null=True,blank=True,upload_to='images/%Y/%m/%d',width_field="width_field",height_field="height_field")
-    height_field = models.IntegerField(default=0)
-    width_field = models.IntegerField(default=0)
-
-
-    def __str__(self):
-        return str(self.title)
 
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)

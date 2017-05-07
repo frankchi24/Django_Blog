@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Comment, Tag, PostFeaturedImage
+from .models import Post, Comment, Tag
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from .forms import PostModelForm, CommentForm
@@ -21,48 +21,35 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 class PostCreate(SuccessMessageMixin,FormUserNeededMixin,CreateView):
     model = Post()
-    form_class = PostModelForm()
+    form_class = PostModelForm
     template_name ='blog/create_post.html'
     success_url = reverse_lazy('blog:archives')
     success_message = "\"%(title)s\" was created successfully"
 
     def form_valid(self,form):
             form.instance.user = self.request.user
-            the_post = form.save(commit=False)
+            instance = form.save(commit=False)
             # use the save(commit=False) before saving many-to-many field
-            the_post.save()
+            instance.save()
+
             tag_names = form.cleaned_data['tags'].split(',')
             for tag in tag_names:
                 tag, created = Tag.objects.get_or_create(tag_name=tag)
-                the_post.tags.add(tag)
+                instance.tags.add(tag)
 
-            the_post.save()
-
-            if self.request.FILES.get('image'):
-                image = form.cleaned_data['image']
-                title = form.cleaned_data['title']
-                post = Post.objects.get(pk = 111)
-                m = PostFeaturedImage.objects.get_or_create(image=image, title=title)[0]
-                post.image.add(m)
-                post.save()
-
-
+            instance.save()
             return super(PostCreate, self).form_valid(form)
+
+
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(
             cleaned_data,
             calculated_field=self.object.title,
         )
 
-
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(PostCreate, self).dispatch(*args, **kwargs)
-
-
-
-
-
 
 
 class PostUpdate(SuccessMessageMixin,UpdateView):
@@ -94,7 +81,7 @@ class PostUpdate(SuccessMessageMixin,UpdateView):
         tag_list = ''
         for tag in self.object.tags.all():
             tag_list = tag_list  + tag.tag_name + ','
-        return { 'tags': tag_list}
+        return { 'tags': tag_list[:-1]}
 
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(
@@ -111,26 +98,27 @@ class PostDelete(DeleteView):
         messages.success(self.request, self.success_message)
         return super(PostDelete, self).delete(request, *args, **kwargs)
 
-def create_post(request):
-    form = PostModelForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        form.instance.user = request.user
-        instance = form.save(commit = False)
-        instance.save()
-        tag_names = form.cleaned_data['tags'].split(',')
-        # split tags from the form cleaned data
-
-        for tag in tag_names:
-            print(tag)
-            tag, created = Tag.objects.get_or_create(tag_name=tag)
-            instance.tags.add(tag)
-        instance.save()
-        messages.success(request, 'Yeah, posted!')
-        return HttpResponseRedirect(instance.get_absolute_url())
-    context = {
-    'form':form,
-    }
-    return render(request,"blog/create_post.html",context)
+# Function based view for creating post
+# def create_post(request):
+#     form = PostModelForm(request.POST or None, request.FILES or None)
+#     if form.is_valid():
+#         form.instance.user = request.user
+#         instance = form.save(commit = False)
+#         instance.save()
+#         tag_names = form.cleaned_data['tags'].split(',')
+#         # split tags from the form cleaned data
+#
+#         for tag in tag_names:
+#             print(tag)
+#             tag, created = Tag.objects.get_or_create(tag_name=tag)
+#             instance.tags.add(tag)
+#         instance.save()
+#         messages.success(request, 'Yeah, posted!')
+#         return HttpResponseRedirect(instance.get_absolute_url())
+#     context = {
+#     'form':form,
+#     }
+#     return render(request,"blog/create_post.html",context)
 
 
 
