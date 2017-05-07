@@ -1,14 +1,18 @@
 {% extends 'to_be_frank/base.html' %} {% load static %} {% block title %}{{ object.title }}{{ object.title }}{% endblock %} {% block content %} {% load markdown_deux_tags %} {{ form.media }}
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
-<header class="intro-header" style="background-image: url('{% static 'img/post-bg.jpg' %}')">
+{% if object.image %}
+<header class="intro-header" style="background-image: url('{{ object.image.url }}')" class='img-responsive'>
+{% else %}
+<header class="intro-header" style="background-image: url('{% static 'img/post-bg.jpg' %}')" class='img-responsive'>
+{% endif %}
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="post-heading">
-          <h1>{{ object.title }}</h1>
+          <h1>{{ object.title }}{{object.postfeaturedimage.title}}</h1>
           <h2 class="subheading">{{ object.subtitle }}</h2>
-          <span class="meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.timestamp|date:"F d, Y" }}</span>
+          <span class="meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.created|date:"F d, Y" }}</span>
           <br> {% for tag in object.tags.all %}
           <a href="/blog/tag/{{ tag.tag_name}}/"><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %}
         </div>
@@ -28,11 +32,6 @@
   </div>
 </article>
 <hr>
-
-
-
-
-
 <div class="container">
   <div class="row">
     <div class="col-lg-5 col-lg-offset-1 col-md-6">
@@ -48,7 +47,7 @@
             <div class="title h5">
               <a href="#"><b>{{ comment.author }}</b></a> made a comment.
             </div>
-            <h6 class="text-muted time">{{ comment.timestamp|timesince }} ago</h6>
+            <h6 class="text-muted time">{{ comment.created|timesince }} ago</h6>
           </div>
         </div>
         <div class="post-description">

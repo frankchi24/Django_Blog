@@ -6,15 +6,15 @@ from pagedown.widgets import PagedownWidget
 
 
 class PostModelForm(forms.ModelForm):
-    tags = forms.CharField(widget=forms.TextInput(attrs={'size':64,'class': 'form-control','placeholder':'Tags'}))
+    tags = forms.CharField(required=False,widget=forms.TextInput(attrs={'size':64,'class': 'form-control','placeholder':'Tags'}))
     content = forms.CharField(widget=PagedownWidget(attrs={'placeholder':'Content'}))
-
     class Meta:
         model = Post
         fields = [
         'title',
         'subtitle',
         'content',
+        'image'
         ]
         exclude = ['user','tags']
         widgets = {

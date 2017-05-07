@@ -28,10 +28,8 @@ class UserRegisterView(FormView):
 		## log user in
 		return super(UserRegisterView, self).form_valid(form)
 
-	
-
 def home(request):
-	queryset = Post.objects.order_by("-timestamp")[:3]
+	queryset = Post.objects.order_by("-created")[:3]
 	object_list = {
 	'object_list':queryset
 	}

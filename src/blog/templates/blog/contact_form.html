@@ -5,7 +5,7 @@
 
 					{% if form %}
 					    <!-- Display Form -->
-					    <form action="{% url "blog:create" %}" method="post" id ="contactform" novalidate>
+					    <form enctype="multipart/form-data" action="{% url "blog:create" %}" method="post" id ="contactform" novalidate>
 					    {% csrf_token %}
 					    {% for field in form %}
 							<div class="row control-group">
