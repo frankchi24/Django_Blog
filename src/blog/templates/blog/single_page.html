@@ -1,31 +1,56 @@
 {% extends 'to_be_frank/base.html' %} {% load static %} {% block title %}{{ object.title }}{{ object.title }}{% endblock %} {% block content %} {% load markdown_deux_tags %} {{ form.media }}
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
-{% if object.image %}
-<header class="intro-header" style="background-image: url('{{ object.image.url }}')" class='img-responsive'>
-{% else %}
-<header class="intro-header" style="background-image: url('{% static 'img/post-bg.jpg' %}')" class='img-responsive'>
-{% endif %}
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-heading">
-          <h1>{{ object.title }}{{object.postfeaturedimage.title}}</h1>
-          <h2 class="subheading">{{ object.subtitle }}</h2>
-          <span class="meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.created|date:"F d, Y" }}</span>
-          <br> {% for tag in object.tags.all %}
-          <a href="/blog/tag/{{ tag.tag_name}}/"><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %}
+
+
+
+
+<header class="intro-header">
+  <div class='intro-header-wrap' style="background-image: url('{{ object.image.url }}')" class='img-responsive'>
+    <div class="my-post-heading">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="my-post-heading">
+            <h1>{{ object.title }}</h1>
+            <h3 class="subheading">{{ object.subtitle }}</h3>
+            <span class="meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.created|date:"F d, Y" }}</span>
+            <br> {% for tag in object.tags.all %}
+            <a href="/blog/tag/{{ tag.tag_name}}/"><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <!-- <h1>{{ object.title }}</h1>
+              <h3>{{ object.subtitle }}</h3>
+              <span>Posted by <a href="#">{{ object.user }}</a> on {{ object.created|date:"F d, Y" }}</span>
+              <br> {% for tag in object.tags.all %}
+              <a href="/blog/tag/{{ tag.tag_name}}/"><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %} -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </header>
 
+
 <!-- Post Content -->
 <article>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <!-- <h1>{{ object.title }}</h1>
+        <h3 class="subheading">{{ object.subtitle }}</h3>
+        <span class="meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.created|date:"F d, Y" }}</span>
+        <br> {% for tag in object.tags.all %}
+        <a href="/blog/tag/{{ tag.tag_name}}/"><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %} -->
         {{ object.content|markdown }}
       </div>
     </div>
