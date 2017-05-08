@@ -3,7 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.pyc
-/static-serve/
+static-serve/
+media/
 
 # C extensions
 *.so
