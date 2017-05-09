@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.generic.edit import FormView
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
 
 class UserRegisterView(FormView):
 	template_name = 'registration/signup.html'
@@ -29,6 +30,7 @@ class UserRegisterView(FormView):
 		return super(UserRegisterView, self).form_valid(form)
 
 def home(request):
+	
 	queryset = Post.objects.order_by("-created")[:3]
 	object_list = {
 	'object_list':queryset

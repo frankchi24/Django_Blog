@@ -186,3 +186,23 @@ body {
 .post .post-footer .comments-list .comment > .comments-list {
   margin-left: 50px;
 }
+
+/*Social Login*/
+
+.social-login ul{
+
+    list-style-type:None;
+    padding: 0;
+    margin:0;
+}
+.social-login li{
+   margin-bottom:10px;
+}
+.social-login .btn{
+  width:400px;
+  text-align:left;
+}
+.social-login span{
+  padding-right:15px;
+
+}

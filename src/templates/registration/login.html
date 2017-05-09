@@ -1,35 +1,61 @@
-{% extends 'to_be_frank/base.html' %}
-{% load static %}
-{% block title %}login{% endblock %}
-
-{% block content %}
+{% extends 'to_be_frank/base.html' %} {% load static %} {% block title %}login{% endblock %} {% block content %}
 <header class="intro-header" style="background-image: url('{% static 'img/contact-bg.jpg' %}')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="page-heading">
-                    <h1>Login</h1>
-                    <hr class="small">
-                    <span class="subheading">You again?</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-<div class="container">
+  <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div id="success"></div>
-    <div class="row">
-        <div class="form-group col-xs-12">
-            <button type="submit" class="btn btn-default">Login</button>
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Login</h1>
+          <hr class="small">
+          <span class="subheading">You again?</span>
         </div>
-    </div>
-  </form>
+      </div>
     </div>
   </div>
-</div>
-{% endblock %}
+</header>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <div id="success"></div>
+        <div class="row">
+          <div class="form-group col-xs-12">
+            <button type="submit" class="btn btn-default">Login</button>
+          </div>
+        </div>
+      </form>
+
+
+      <p><strong>-- OR --</strong></p>
+      <div class="social-login">
+      <ul>
+        <li>
+      <a href="{% url 'social:begin' 'facebook' %}">
+      <button type="button" class="btn btn-default" aria-label="Left Align">
+          <span class="fa fa-facebook-official fa-2x" aria-hidden="true"></span>
+          Log in with Facebook
+        </button>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'social:begin' 'google-oauth2' %}">
+          <button type="button" class="btn btn-default" aria-label="Left Align">
+            <span class="fa fa-google fa-2x" aria-hidden="true"></span>
+            Log in with Google
+          </button>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'social:begin' 'github' %}">
+        <button type="button" class="btn btn-default" aria-label="Left Align">
+            <span class="fa fa-github fa-2x" aria-hidden="true"></span>
+            Log in with Github
+          </button>
+          </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

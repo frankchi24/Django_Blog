@@ -15,12 +15,16 @@
 
     <!-- Bootstrap Core CSS -->
     <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="{% static 'css/bootstrap-social.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="https://use.fontawesome.com/32f65472b9.js"></script>
+
     <!-- Theme CSS -->
     <!-- <link href="css/clean-blog.min.css" rel="stylesheet"> -->
     <link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">
     <!-- Custom CSS > -->
     <link href="{% static 'css/to_be_frank.css' %}" rel="stylesheet">
+
 
     <!-- Custom Fonts -->
     <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
@@ -34,6 +38,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- font awesome -->
 
 </head>
 
@@ -59,10 +64,14 @@
                     <span class="sr-only">Toggle navigation</span>
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                {% if user.is_authenticated %}
-                <a class="navbar-brand" href="/">{{user.username}}@frankchi</a>
+                {% if user.is_authenticated%}
+                  {% if user.first_name == "" %}
+                      <a class="navbar-brand" href="/">Hi, {{user.username}} !!</a>
+                  {% elif user.first_name != "" %}
+                      <a class="navbar-brand" href="/">Hi, {{user.first_name}} !!</a>
+                  {% endif %}
                 {% else %}
-                <a class="navbar-brand" href="/">guest@frankchi</a>
+                <a class="navbar-brand" href="/">guest@frankchi.net</a>
                 {% endif %}
             </div>
 

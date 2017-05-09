@@ -29,6 +29,37 @@
         </div>
     </div>
   </form>
+  <p><strong>-- OR --</strong></p>
+  <div class="social-login">
+  <ul>
+    <li>
+  <a href="{% url 'social:begin' 'facebook' %}">
+  <button type="button" class="btn btn-default" aria-label="Left Align">
+      <span class="fa fa-facebook-official fa-2x" aria-hidden="true"></span>
+      Sign Up with Facebook
+    </button>
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'social:begin' 'google-oauth2' %}">
+      <button type="button" class="btn btn-default" aria-label="Left Align">
+        <span class="fa fa-google fa-2x" aria-hidden="true"></span>
+        Sign Up with Google
+      </button>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'social:begin' 'github' %}">
+    <button type="button" class="btn btn-default" aria-label="Left Align">
+        <span class="fa fa-github fa-2x" aria-hidden="true"></span>
+        Sign Up with Github
+      </button>
+      </a>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
     </div>
   </div>
 </div>
