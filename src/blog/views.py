@@ -13,7 +13,6 @@ from django.contrib import messages
 #Pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # For image
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
 
 # Create your views here.

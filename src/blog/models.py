@@ -19,7 +19,7 @@ class Tag(models.Model):
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     title = models.CharField(max_length=100,unique=True,validators=[validate_content])
-    subtitle = models.CharField(max_length=100,null=True)
+    subtitle = models.CharField(null=True, blank=True,max_length=100)
     content = models.TextField(max_length = 5000)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

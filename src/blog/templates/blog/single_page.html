@@ -1,12 +1,13 @@
 {% extends 'to_be_frank/base.html' %} {% load static %} {% block title %}{{ object.title }}{{ object.title }}{% endblock %} {% block content %} {% load markdown_deux_tags %} {{ form.media }}
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
-
-
-
-
 <header class="intro-header">
+  {% if object.image %}
   <div class='intro-header-wrap' style="background-image: url('{{ object.image.url }}')" class='img-responsive'>
+      <div class='intro-header-wrap' style="background-image: url('{{ object.image.url }}')" class='img-responsive'>
+  {% else %}
+      <div class='intro-header-wrap' style="background-image: url('{% static 'img/post-bg.jpg' %}')" class='img-responsive'>
+  {% endif %}
     <div class="my-post-heading">
       <div class="container">
         <div class="row">

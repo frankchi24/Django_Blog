@@ -1,3 +1,8 @@
+body {
+  font-family:'Lora', 'Times New Roman', serif,;
+  font-size: 20px;
+  color: #333333;
+}
 
 /*Pagination*/
 
@@ -28,8 +33,6 @@
   top:100px;
   width: 100%;
   height: 100%;
-
-
 }
 .intro-header .my-post-heading h1 {
   font-size: 35px;
