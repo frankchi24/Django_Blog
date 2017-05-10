@@ -47,12 +47,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <!-- <h1>{{ object.title }}</h1>
-        <h3 class="subheading">{{ object.subtitle }}</h3>
-        <span class="meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.created|date:"F d, Y" }}</span>
-        <br> {% for tag in object.tags.all %}
-        <a href="/blog/tag/{{ tag.tag_name}}/"><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %} -->
-        {{ object.content|markdown }}
+          {{ object.content|markdown }}
       </div>
     </div>
   </div>
