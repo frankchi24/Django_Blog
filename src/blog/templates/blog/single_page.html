@@ -15,7 +15,7 @@
             <div class="my-post-heading">
             <h1>{{ object.title }}</h1>
             <h3 class="subheading">{{ object.subtitle }}</h3>
-            <span class="meta">Posted by <a href="#">{{ object.user }}</a> on {{ object.created|date:"F d, Y" }}</span>
+            <span class="meta">Posted by <a href="#">{% if object.user.first_name != ""%}{{ object.user.first_name }}{%else%}{{ object.user }}{% endif%}</a> on {{ object.created|date:"F d, Y" }}</span>
             <br> {% for tag in object.tags.all %}
             <a href="/blog/tag/{{ tag.tag_name}}/"><span class="label label-default">{{ tag.tag_name }}</span></a> {% endfor %}
             </div>
