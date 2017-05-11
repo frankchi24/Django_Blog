@@ -17,7 +17,7 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import home,contact,about,post,UserRegisterView
+from .views import home,contact,about,post,UserRegisterView,my_logout,my_login
 from django.contrib.auth import views as auth_views
 
 
@@ -30,8 +30,8 @@ urlpatterns = [
     url(r'^post/$',post, name='post'),
     url(r'^blog/',include('blog.urls',namespace='blog')),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
-    url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
+    url(r'^login/$', my_login, name='login'),
+    url(r'^logout/$', my_logout, name='logout'),
 ]
 
 

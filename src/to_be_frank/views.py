@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.views.generic.edit import FormView
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import views as auth_views
+from django.http import HttpResponseRedirect, HttpResponse
 
 class UserRegisterView(FormView):
 	template_name = 'registration/signup.html'
@@ -29,8 +31,27 @@ class UserRegisterView(FormView):
 		## log user in
 		return super(UserRegisterView, self).form_valid(form)
 
+
+def my_login(request):
+	if request.method == 'POST':
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None and user.is_active:
+			login(request, user)
+			message = messages.success(request, "You are logged in. Hi!!")
+			return HttpResponseRedirect("/")
+		return HttpResponseRedirect("/login/")
+	return auth_views.login(request,"registration/login.html/")
+
+@login_required
+def my_logout(request):
+	messages.success(request, "See you!")
+	return auth_views.logout(request,"/")
+
+
 def home(request):
-	
+
 	queryset = Post.objects.order_by("-created")[:3]
 	object_list = {
 	'object_list':queryset

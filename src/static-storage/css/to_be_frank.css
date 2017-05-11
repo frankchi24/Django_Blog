@@ -21,6 +21,8 @@ body {
 .intro-header-wrap{
   position:relative;
   z-index:-1;
+  background-position:no-repeat;
+  background-size:cover;
 
 }
 /*background picure*/
