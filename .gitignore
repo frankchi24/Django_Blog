@@ -99,3 +99,7 @@ ENV/
 
 # mkdocs documentation
 /site
+
+
+# Scret
+secret_settings.py
