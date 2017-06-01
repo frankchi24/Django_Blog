@@ -24,7 +24,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['frankchi.net','128.199.129.221','localhost','127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
