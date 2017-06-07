@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'tvscripts',
     'pagedown',
     'django_markdown',
     'markdown_deux',
