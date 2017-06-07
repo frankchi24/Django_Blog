@@ -41,7 +41,9 @@ def my_login(request):
 			login(request, user)
 			message = messages.success(request, "You are logged in. Hi!!")
 			return HttpResponseRedirect("/")
-		return HttpResponseRedirect("/login/")
+		else:
+			message = messages.success(request, "Nope, wrong user name or password")
+			return HttpResponseRedirect("/login/")
 	return auth_views.login(request,"registration/login.html/")
 
 @login_required
