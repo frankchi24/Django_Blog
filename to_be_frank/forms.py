@@ -15,7 +15,7 @@ class UserRegisterForm(forms.Form):
         return password2
 
     def clean_email(self):
-        data = self.cleaned_data.get('password')
+        data = self.cleaned_data.get('email')
         if User.objects.filter(email=data).exists():
             raise forms.ValidationError("This email is already used")
         return data
