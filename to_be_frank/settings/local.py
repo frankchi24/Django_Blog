@@ -150,8 +150,7 @@ LOGIN_REDIRECT_URL = 'http://localhost:8000/'
 # Media
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
 ## Social login
 
 AUTHENTICATION_BACKENDS = (
