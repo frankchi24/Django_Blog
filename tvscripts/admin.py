@@ -4,7 +4,7 @@ from .models import Script_Tag, Script
 
 
 class ScriptAdmin(admin.ModelAdmin):
-    list_display = ('scripts','position','epi_number','season','show_name')
+    list_display = ('id','scripts','position','epi_number','season','show_name')
     search_fields = ('scripts', 'show_name')
 
 

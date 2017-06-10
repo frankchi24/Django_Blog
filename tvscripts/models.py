@@ -10,9 +10,10 @@ class Script_Tag(models.Model):
         return str(self.tag_name)
 
 class Script(models.Model):
-    scripts = models.CharField(max_length=500,unique=False)
+    scripts = models.CharField(max_length=5000,unique=False)
     position = models.CharField(blank=True,null=True,max_length=500,unique=False)
     epi_number = models.IntegerField()
+    epi_name = models.CharField(blank=True,null=True,max_length=500,unique=False)
     season = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
